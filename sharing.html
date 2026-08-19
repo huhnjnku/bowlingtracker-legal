@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sharing &amp; Export — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--brand-dim); color: var(--brand); }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Sharing &amp; Export</h1>
+
+<p>Every way you can get data in or out of the app.</p>
+
+<h2>Format Comparison</h2>
+
+<table>
+  <tr><th>Format</th><th>What's included</th><th>Round-trip?</th><th>Use for</th></tr>
+  <tr>
+    <td><code>.bowlingmatch</code></td>
+    <td>Single match, single opponent, no telemetry</td>
+    <td>Yes (via CSV parser)</td>
+    <td>Quick AirDrop to another coach</td>
+  </tr>
+  <tr>
+    <td><code>.bowlingmatchjson</code></td>
+    <td>Single match, full tri/quad, telemetry, oil pattern</td>
+    <td>Yes</td>
+    <td>Preferred single-match export</td>
+  </tr>
+  <tr>
+    <td><code>.bowlingseasonjson</code></td>
+    <td>Multiple matches + roster + telemetry</td>
+    <td>Yes</td>
+    <td>Season archive, device migration</td>
+  </tr>
+  <tr>
+    <td>CSV (216 columns)</td>
+    <td>Multiple matches, single opponent, no tri/quad</td>
+    <td>Yes (legacy)</td>
+    <td>Spreadsheet analysis, external tools</td>
+  </tr>
+  <tr>
+    <td>PDF (Match Overview)</td>
+    <td>Formatted 1-2 page match report</td>
+    <td>No (view-only)</td>
+    <td>Handing to parents, athletic director</td>
+  </tr>
+  <tr>
+    <td>Parent Packet</td>
+    <td>Pin telemetry rows for one bowler</td>
+    <td>Yes (import-only for coach)</td>
+    <td>Parents helping with pin tracking</td>
+  </tr>
+  <tr>
+    <td>Roster QR</td>
+    <td>Player list + gender pool + version</td>
+    <td>Scan-only (parent-side)</td>
+    <td>Sharing roster with parents</td>
+  </tr>
+</table>
+
+<h2>Sharing a Match (Coach → Coach)</h2>
+
+<p>Two paths, depending on what your receiver has:</p>
+
+<h3>AirDrop the .bowlingmatch File</h3>
+<ol>
+  <li>Historical Matches tab → tap the match → <strong>Share to Coach</strong>.</li>
+  <li>iOS share sheet opens.</li>
+  <li>Pick the receiving coach's device via AirDrop, or send via Mail/Messages.</li>
+  <li>They tap the file → the app detects the extension → they import via the preview sheet.</li>
+</ol>
+
+<h3>Live Match Scoring Co-Coach Invite</h3>
+<p>If you both have LMS and you're on the same squad, no file transfer needed — matches sync automatically. See <a href="live-match-scoring.html">Live Match Scoring</a>.</p>
+
+<h2>Exporting to JSON</h2>
+
+<h3>Single Match</h3>
+<ol>
+  <li>Historical Matches → tap a match → <strong>Export JSON (Single Match)</strong>.</li>
+  <li>iOS share sheet → save to Files, AirDrop, Mail, etc.</li>
+</ol>
+
+<h3>Season Bulk</h3>
+<ol>
+  <li>Historical Matches → tap any match → <strong>Export Season JSON</strong>.</li>
+  <li>The export uses your current History filter as the scope. Filter to "Show All" first if you want everything.</li>
+  <li>The file includes: match records, roster snapshot, and pin telemetry.</li>
+</ol>
+
+<p>Import a JSON file via the toolbar <strong>Import</strong> button in Historical Matches. It auto-detects the format from the extension.</p>
+
+<h2>Exporting a PDF Match Overview</h2>
+
+<ol>
+  <li>Historical Matches → tap a match → <strong>Export PDF Match Overview</strong>.</li>
+  <li>PDF options sheet appears:
+    <ul>
+      <li><strong>Include opponent per-player scores</strong> — off by default. When off, opponent bowlers appear as "Bowler 1", "Bowler 2" etc. for privacy.</li>
+    </ul>
+  </li>
+  <li>Tap <strong>Generate</strong>.</li>
+  <li>A Mail composer opens with the PDF attached. Send to parents, athletic director, whoever.</li>
+</ol>
+
+<h2>Roster QR Sharing (Coach → Parent)</h2>
+
+<ol>
+  <li>Settings → tap the <strong>Roster</strong> people icon in the toolbar.</li>
+  <li>Tap the <strong>QR</strong> icon at the top of the roster manager.</li>
+  <li>Show the QR code on your screen.</li>
+  <li>Parents scan it with their copy of the app (Parent mode → Rosters → Scan Coach Roster).</li>
+</ol>
+
+<div class="callout">
+  <strong>The QR encodes: school name, gender pool, roster version, and every active player + grad year.</strong> Nothing sensitive — no birth dates, no addresses. Just what parents need to identify their bowler.
+</div>
+
+<h3>Bumping the Roster Version</h3>
+
+<p>Every roster edit (add, edit, soft-delete, reactivate) automatically bumps the roster version. Parents scanning an older QR see a warning that their tracked players may be stale.</p>
+
+<p>You can manually bump the version too from the QR share screen — useful if you want to force parents to rescan.</p>
+
+<h2>Parent Packet (Parent → Coach)</h2>
+
+<p>When a parent tracks pin data for your bowler, they can send the raw data back to you.</p>
+
+<h3>Parent Side</h3>
+<ol>
+  <li>Parent taps their tracked match → export → picks the parent packet format.</li>
+  <li>AirDrop, Mail, or Messages the file to you.</li>
+</ol>
+
+<h3>Coach Side</h3>
+<ol>
+  <li>Historical Matches → tap the corresponding match → <strong>Import Parent Data</strong>.</li>
+  <li>Pick the file the parent sent.</li>
+  <li>Preview screen shows each imported row with:
+    <ul>
+      <li>A reassignment picker (in case the parent tracked a different player ID)</li>
+      <li>An action picker (<strong>Import</strong> or <strong>Skip</strong>)</li>
+      <li>A status indicator: Matches roster, Exists in roster but not on this match, Not in roster</li>
+    </ul>
+  </li>
+  <li>Tap <strong>Apply</strong> to merge the selected rows into the match's pin telemetry.</li>
+</ol>
+
+<h2>Importing Matches</h2>
+
+<p>Historical Matches → toolbar <strong>Import</strong> button. Supported extensions:</p>
+
+<ul>
+  <li><code>.bowlingmatch</code></li>
+  <li><code>.bowlingmatchjson</code></li>
+  <li><code>.bowlingseasonjson</code></li>
+  <li><code>.csv</code> / <code>.txt</code></li>
+</ul>
+
+<p>Matches with the same UUID overwrite existing local copies (safe re-import).</p>
+
+<h2>Google Sheets Export</h2>
+
+<p>See <a href="google-sheets.html">Google Sheets Integration</a> for the live-push flow. There's no one-shot "export to Sheets" button — the integration is designed for live match streaming rather than bulk export.</p>
+
+<div class="callout info">
+  <strong>Need Sheets-flavored bulk export?</strong> Use CSV export → open in Google Sheets → File → Import. This works for all match data (single-opponent only).
+</div>
+
+<h2>CSV Export Limitations</h2>
+
+<p>The 216-column CSV format was defined before tri/quad match support. When you export a filter that includes tri/quad matches:</p>
+
+<div class="callout warn">
+  <strong>Tri/quad matches are silently excluded from CSV export.</strong> An alert warns you: "The CSV format is single-opponent only. N of M matches (Tri/Quad) will be excluded from this export."
+</div>
+
+<p>Use JSON exports for the full data.</p>
+
+<div class="footer-nav">
+  <a href="parent-mode.html">← Parent Mode</a>
+  <a href="faq.html">Next: FAQ &amp; Gotchas →</a>
+</div>
+
+</body>
+</html>

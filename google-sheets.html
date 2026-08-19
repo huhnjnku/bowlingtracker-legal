@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Google Sheets Integration — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  pre { background: #f4f4f4; padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 0.88em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Google Sheets Integration</h1>
+
+<p>The Google Sheets bridge lets you push live match scores to a Google Sheet in real time. Useful for:</p>
+
+<ul>
+  <li>Public broadcast scoreboards</li>
+  <li>Athletic department displays</li>
+  <li>Historical archives your program already maintains in Sheets</li>
+  <li>Any downstream consumer that reads a Google Sheet (Slack integrations, dashboards, etc.)</li>
+</ul>
+
+<h2>Prerequisites</h2>
+
+<p>You need:</p>
+
+<ul>
+  <li>Live Match Scoring enabled (this is a premium-only feature)</li>
+  <li>A Google account</li>
+  <li>A Google Apps Script Web App that accepts POSTs and writes to your spreadsheet</li>
+</ul>
+
+<div class="callout info">
+  <strong>Why a webhook and not the Sheets API directly?</strong> A webhook is dramatically simpler to set up and doesn't require handing OAuth credentials to a third-party app. You control the script; the script controls what gets written to which cells.
+</div>
+
+<h2>Step 1 — Create Your Spreadsheet</h2>
+
+<p>Open Google Sheets and create a new spreadsheet. The layout the app expects (a suggested template):</p>
+
+<ul>
+  <li>Rows 1-11 for lineup rows: 8 starters + 3 subs</li>
+  <li>Columns A-G for game data (name in A, games 1-6 in B-G)</li>
+  <li>Column I for row totals</li>
+  <li>Three additional rows below the lineup for baker games</li>
+</ul>
+
+<p>The exact cell layout is up to your Apps Script — the app sends a structured JSON payload and you decide where to place each field.</p>
+
+<h2>Step 2 — Create the Apps Script</h2>
+
+<ol>
+  <li>In your spreadsheet: <strong>Extensions → Apps Script</strong>.</li>
+  <li>Delete the default <code>myFunction</code>.</li>
+  <li>Paste a script that reads the POST body and writes into the sheet. Minimal starter:</li>
+</ol>
+
+<pre>function doPost(e) {
+  const payload = JSON.parse(e.postData.contents);
+  const sheet = SpreadsheetApp.getActiveSheet();
+
+  // payload.homeSchool, payload.opponentName, etc.
+  // payload.matchDate — ISO string
+  // payload.lineup — array of 11 slot objects with { playerName, games: [g1..g6], total }
+  // payload.baker — { games: [g1..g6], total }
+  // payload.opponentTotals — array for tri/quad
+  // payload.matchIsFinalized — boolean
+
+  sheet.getRange('B1').setValue(payload.homeSchool);
+  sheet.getRange('B2').setValue(payload.opponentName || '');
+
+  payload.lineup.forEach((slot, i) =&gt; {
+    const row = i + 4; // starts at row 4
+    sheet.getRange(row, 1).setValue(slot.playerName || '');
+    slot.games.forEach((g, j) =&gt; {
+      sheet.getRange(row, 2 + j).setValue(g || '');
+    });
+    sheet.getRange(row, 9).setValue(slot.total || ''); // col I
+  });
+
+  return ContentService.createTextOutput('OK');
+}</pre>
+
+<p>Customize the cell mapping to match your spreadsheet.</p>
+
+<h2>Step 3 — Deploy as Web App</h2>
+
+<ol>
+  <li>In Apps Script: <strong>Deploy → New deployment</strong>.</li>
+  <li>Type: <strong>Web app</strong>.</li>
+  <li>Execute as: <strong>Me</strong>.</li>
+  <li>Who has access: <strong>Anyone</strong>. (The webhook URL is your secret — treat it like a password.)</li>
+  <li>Click <strong>Deploy</strong>.</li>
+  <li>Copy the <strong>Web app URL</strong> that ends in <code>/exec</code>.</li>
+</ol>
+
+<h2>Step 4 — Wire the Webhook into the App</h2>
+
+<ol>
+  <li>In Bowling Tracker → Settings → find your squad in the LMS section.</li>
+  <li>Tap the <strong>Sheets</strong> icon in the squad row.</li>
+  <li>Paste your Web App URL into the <strong>Webhook URL</strong> field.</li>
+  <li>Tap <strong>Save</strong>.</li>
+</ol>
+
+<p>The squad row now shows a green <strong>Sheets</strong> pill.</p>
+
+<h2>What Gets Sent, and When</h2>
+
+<p>While you're scoring an eligible match (H2H or Tournament, not Open Tracking):</p>
+
+<ul>
+  <li>The publisher sends a snapshot to your webhook on every score change, then coalesces via a debounce.</li>
+  <li>Each snapshot is a fixed 11-slot lineup (bowlers 1-8 + subs 1-3) plus a baker block.</li>
+  <li>Empty slots are still sent, just with blank scores — this keeps the row structure predictable.</li>
+  <li>Column I totals are included in the payload as pre-computed values.</li>
+  <li>On network errors, the app retries once silently before giving up on that snapshot.</li>
+</ul>
+
+<h2>Status Indicators</h2>
+
+<p>In Settings, next to the squad name:</p>
+
+<ul>
+  <li>Green <strong>Sheets</strong> pill — webhook is configured.</li>
+  <li>Under the pill: <strong>Last sent at HH:MM:SS</strong> — updates on every successful POST.</li>
+  <li>Orange text — appears if the most recent POST failed. Common causes: expired script deployment, permission changes, script errors.</li>
+</ul>
+
+<h2>Clearing the Webhook</h2>
+
+<p>Open the Sheets config sheet → tap <strong>Clear</strong>. The webhook URL is removed and pushing stops. The rest of Live Match Scoring keeps working.</p>
+
+<h2>Common Gotchas</h2>
+
+<div class="callout warn">
+  <strong>Redeployments change the URL.</strong> If you edit your Apps Script and hit Deploy → New Deployment, you get a new URL. Update the webhook in Bowling Tracker to match. Alternatively, use <strong>Manage Deployments</strong> to edit the existing one — that keeps the URL stable.
+</div>
+
+<div class="callout">
+  <strong>Apps Script has quotas.</strong> Google limits free Web Apps to something like 20,000 URL fetches per day and 6-minute execution time per call. For normal live scoring you'll never hit them, but if your script does heavy processing it might time out.
+</div>
+
+<div class="callout info">
+  <strong>You can share the sheet without exposing the webhook URL.</strong> Publish the spreadsheet as a webpage or share it view-only — parents and staff see the live scores, and only you know the webhook URL.
+</div>
+
+<div class="footer-nav">
+  <a href="live-match-scoring.html">← Live Match Scoring</a>
+  <a href="parent-mode.html">Next: Parent Mode →</a>
+</div>
+
+</body>
+</html>

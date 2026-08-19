@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FAQ &amp; Gotchas — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  details { margin: 8px 0; padding: 12px 16px; border: 1px solid var(--border); border-radius: 6px; }
+  details[open] { background: #fafafa; }
+  summary { font-weight: 600; cursor: pointer; color: var(--brand); }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>FAQ &amp; Gotchas</h1>
+
+<p>Common questions and non-obvious behaviors, organized by topic.</p>
+
+<h2>General</h2>
+
+<details>
+  <summary>Do I need an account?</summary>
+  <p>No. The app has no login. Live Match Scoring uses your existing iCloud account, but there's no separate Bowling Tracker account to create.</p>
+</details>
+
+<details>
+  <summary>Does my data leave my device?</summary>
+  <p>Only if you turn on Live Match Scoring, and even then, it only goes through your own iCloud account. Never to any developer server. See the <a href="https://huhnjnku.github.io/bowlingtracker-legal/privacy.html">Privacy Policy</a>.</p>
+</details>
+
+<details>
+  <summary>Is Bowling Tracker free?</summary>
+  <p>Yes for the core app. Live Match Scoring is an optional one-time $4.99 in-app purchase. Everything else — scoring, roster, history, statistics, PDF/CSV/JSON export, QR share, parent packet — is free.</p>
+</details>
+
+<details>
+  <summary>Are the parent app and coach app the same download?</summary>
+  <p>Yes. One app, two modes. Pick your mode on first launch or switch in Settings.</p>
+</details>
+
+<h2>Scoring</h2>
+
+<details>
+  <summary>My scoresheet total and pin-derived total disagree — which wins?</summary>
+  <p>The scoresheet total always wins. Pin telemetry is a helper — it never overwrites what you typed. If the totals disagree, an amber banner appears on the match's detailed history card so you can review, but the saved total is what you entered.</p>
+</details>
+
+<details>
+  <summary>Can I score two squads at once on one device?</summary>
+  <p>Yes. Tap Add Squad in the Log Match tab to open more than one workspace. Switch between them via the chip row at the top. Handy for Varsity + JV on the same night.</p>
+</details>
+
+<details>
+  <summary>Why can't I edit the Squad Name field mid-match with LMS on?</summary>
+  <p>Renaming a squad after publishing would disconnect its iCloud sync link — parents and co-coaches would lose track of the match. The field is locked for H2H and Tournament while LMS is on. Open Tracking never publishes, so the field stays editable there.</p>
+</details>
+
+<details>
+  <summary>Why does the Save button say a squad has "incomplete pin tracking"?</summary>
+  <p>Because at least one game has partial pin data — you started tracking pins but didn't finish. You can save anyway; the pin-derived stats will just be missing for those games. The scoresheet total is unaffected.</p>
+</details>
+
+<details>
+  <summary>Do baker games count toward a player's individual average?</summary>
+  <p>No. Baker rotates bowlers through frames, so no single bowler owns the game. Individual averages only include games a single bowler bowled alone. Baker stats show up separately on the individual detail card.</p>
+</details>
+
+<h2>Roster</h2>
+
+<details>
+  <summary>What's the difference between soft-delete (Remove) and permanent delete?</summary>
+  <p>Soft-delete just hides the player from the active roster while keeping their match history intact. You can reactivate them any time. Permanent delete (only available on graduated bowlers) removes them entirely — match history that referenced them becomes orphaned.</p>
+</details>
+
+<details>
+  <summary>Two records exist for the same person — how do I fix it?</summary>
+  <p>Manual merge. In the Roster manager, swipe right on the incorrect version → tap Merge Into… → pick the canonical version. History rewrites, source deletes.</p>
+</details>
+
+<details>
+  <summary>Squad Assignment vs. Roster Pool?</summary>
+  <p>Pool (Boys/Girls) is a hard filter — a girls-pool player never appears in boys squads. Squad assignment is a soft filter — it controls which of your six preset squads the player appears in. Leaving squad assignment blank shows the player in every squad picker.</p>
+</details>
+
+<h2>Statistics</h2>
+
+<details>
+  <summary>My W-L record looks wrong — why?</summary>
+  <p>Most likely cause: you have tri/quad matches in scope and the Include Multi checkbox is off (default). Turn it on to include tri/quad results pairwise. Alternatively, filter your season/squad/format to isolate just H2H matches.</p>
+</details>
+
+<details>
+  <summary>Team Overview stats show as zero.</summary>
+  <p>The pool derivation may not be finding your squad name. Squad names like "Boys Varsity" or "Girls JV" auto-map to a pool. Ambiguous names like just "Varsity" may not. Rename the squad to include the pool word.</p>
+</details>
+
+<details>
+  <summary>Why is the school-year boundary August, not September?</summary>
+  <p>High school bowling seasons in most states start in early autumn and finish before spring, so an August boundary keeps a full season's matches in one bucket. If your state does something exotic, the season filter still lets you pick a custom range.</p>
+</details>
+
+<h2>Live Match Scoring</h2>
+
+<details>
+  <summary>Parent can't get the invite URL to work — "you need a newer version" error.</summary>
+  <p>This is an iOS quirk for apps not yet on the App Store. Use the paste-URL fallback: Settings → Join via URL (coach) or Live tab → Paste Share URL (parent). Once the app is publicly available, tap-to-accept starts working automatically.</p>
+</details>
+
+<details>
+  <summary>Nothing publishes to iCloud — is LMS broken?</summary>
+  <p>Two common causes: (1) the squad isn't published yet — tap Publish in Settings, and (2) the App Store paid apps agreement isn't active (developer-side). Live Match Scoring is Coach-only; parents subscribing to a squad only need the invite URL.</p>
+</details>
+
+<details>
+  <summary>What happens if I refund my Live Match Scoring purchase?</summary>
+  <p>If you'd been grandfathered before purchasing, you keep grandfather status. If you weren't grandfathered, LMS locks again on the next entitlement check. Existing published squads stay in iCloud but stop receiving new updates.</p>
+</details>
+
+<details>
+  <summary>Do notifications wake up the phone?</summary>
+  <p>Yes for standard priority — matchStarted, matchFinal, and 279+ notifications behave like any push notification. They don't currently use the time-sensitive category (would break through Do Not Disturb), but that's on the roadmap.</p>
+</details>
+
+<h2>Parent Mode</h2>
+
+<details>
+  <summary>I scanned the coach's QR but my bowler doesn't show up.</summary>
+  <p>Two things to check: (1) You may be looking at the wrong pool — use the segmented picker at the top of the roster manager to switch between Boys and Girls. (2) The coach may have removed the player before generating the QR. Ask them to re-share.</p>
+</details>
+
+<details>
+  <summary>My Track tab shows a warning triangle on a player.</summary>
+  <p>That player isn't in your latest roster. Either the coach removed them, renamed them, or you scanned an old QR. Ask for a fresh QR and rescan.</p>
+</details>
+
+<details>
+  <summary>I don't see any live scores in the Live tab.</summary>
+  <p>Check: (1) you're subscribed — the pill bar at the top should show the squad name. (2) The coach is actively scoring — Live tab only shows matches where the coach has entered at least one score today. Yesterday's completed match doesn't count as "live."</p>
+</details>
+
+<h2>Exports and Sharing</h2>
+
+<details>
+  <summary>CSV export dropped some of my matches.</summary>
+  <p>Tri/quad matches are silently excluded from CSV export — the 216-column format doesn't support multiple opponents. Use JSON export for the full data.</p>
+</details>
+
+<details>
+  <summary>Where does my exported data go?</summary>
+  <p>Wherever you pick from the iOS share sheet — Files, AirDrop, Mail, Messages. The app never uploads exports anywhere on its own.</p>
+</details>
+
+<details>
+  <summary>Can I bulk-import multiple .bowlingmatch files at once?</summary>
+  <p>Not directly. Import them one at a time via the Import button in History. Or, if the sender exports a Season JSON, you can import the whole batch in one file.</p>
+</details>
+
+<h2>Troubleshooting</h2>
+
+<details>
+  <summary>App keeps crashing on match save.</summary>
+  <p>Force-quit and reopen. If crashes persist, try disabling Live Match Scoring temporarily (Settings → Use Live Match Scoring off) and see if the crash reproduces locally. Email <a href="mailto:huhnjnku@yahoo.com">huhnjnku@yahoo.com</a> with a description.</p>
+</details>
+
+<details>
+  <summary>Paywall shows "not available right now."</summary>
+  <p>StoreKit can't find the product. Common causes: (1) fresh App Store Connect record still propagating (wait 30-60 min), (2) sandbox environment issue in TestFlight — sign out of App Store on device and back in.</p>
+</details>
+
+<details>
+  <summary>Roster QR scanner won't focus.</summary>
+  <p>Camera permission may be denied. iOS Settings → Bowling Tracker → Camera → allow. Also make sure you're pointing at a real QR displayed on a screen, not a printed QR that's badly reflective.</p>
+</details>
+
+<h2>Contact</h2>
+
+<p>Bug reports, feature requests, or general feedback: <a href="mailto:huhnjnku@yahoo.com">huhnjnku@yahoo.com</a>.</p>
+
+<p>The app is built and maintained by a bowling coach. Response time is a few days during bowling season, longer in the off-season.</p>
+
+<div class="footer-nav">
+  <a href="sharing.html">← Sharing &amp; Export</a>
+  <a href="index.html">Back to Table of Contents →</a>
+</div>
+
+</body>
+</html>

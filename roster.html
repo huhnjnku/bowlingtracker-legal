@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Managing Your Roster — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  .btn { display: inline-block; background: var(--brand-dim); color: var(--brand); border-radius: 4px; padding: 2px 8px; font-weight: 600; font-size: 0.92em; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Managing Your Roster</h1>
+
+<p>The roster is the pool of players available for match scoring. Access it from <strong>Settings → Roster</strong> (people icon in the top-right toolbar).</p>
+
+<h2>Adding a Player</h2>
+
+<ol>
+  <li>Open the roster manager.</li>
+  <li>Use the segmented picker at the top to select the <strong>Boys Pool</strong> or <strong>Girls Pool</strong>. Players belong to one pool at a time.</li>
+  <li>Type the player's name into the <em>Add New Player…</em> field.</li>
+  <li>Optionally add a graduation year (4-digit, e.g. <code>2029</code>).</li>
+  <li>Tap the <strong>+</strong> icon to save.</li>
+</ol>
+
+<p>The player appears immediately in the <strong>Active Pool</strong> list, sorted alphabetically.</p>
+
+<h2>Editing a Player</h2>
+
+<p>Tap a player's row to load them into the input row. Update their name or graduation year, then tap the checkmark icon to save.</p>
+
+<h2>Squad Assignment (Optional)</h2>
+
+<p>When editing a player, a chip row labeled <strong>SQUAD ASSIGNMENT (optional)</strong> appears. It lists up to six squad presets (Boys Varsity, Girls JV, etc.).</p>
+
+<ul>
+  <li><strong>Empty (no chips selected)</strong> — the player appears in every squad's roster picker. This is the default and works for most bowlers.</li>
+  <li><strong>One or more chips selected</strong> — the player only appears in the picker for those specific squads.</li>
+</ul>
+
+<p>Only chips matching the player's gender show up (a girls-pool player won't see boys squads).</p>
+
+<div class="callout info">
+  <strong>Assignment is a filter, not a gate.</strong> An assigned player is still on the roster — the assignment just controls which squad picker they show up in. It's most useful when you have overlapping rosters (e.g. a bowler who bowls Varsity and JV) or when you want to tidy up long picker lists.
+</div>
+
+<h2>Soft Delete (Remove)</h2>
+
+<p>Swipe <strong>left</strong> on an active player → tap <strong>Remove</strong>. This soft-deletes them: they disappear from the active roster and picker menus, but their match history is preserved.</p>
+
+<p>Removed players show up under <strong>Graduated Bowlers</strong> at the bottom of the list.</p>
+
+<h2>Re-activating a Player</h2>
+
+<p>Swipe <strong>right</strong> on a graduated bowler → tap <strong>Re-activate</strong>. They rejoin the active pool immediately.</p>
+
+<h2>Permanently Deleting</h2>
+
+<p>Swipe <strong>left</strong> on a graduated bowler → tap <strong>Delete</strong>. This is permanent. Match history that referenced this player becomes orphaned (the score is preserved but the name shows as blank or the player ID).</p>
+
+<div class="callout warn">
+  <strong>Don't permanently delete a player who has real match history.</strong> Soft-delete instead — that keeps them out of the picker without breaking historical stats.
+</div>
+
+<h2>Merging Duplicates</h2>
+
+<p>If you accidentally create two records for the same person (e.g. <em>Sam Meyer</em> and <em>Sam Myers</em>), use manual merge:</p>
+
+<ol>
+  <li>Swipe <strong>right</strong> on the incorrect version → tap <strong>Merge Into…</strong> (orange).</li>
+  <li>Pick the canonical version from the destination list. Only same-pool candidates appear.</li>
+  <li>Confirm the merge dialog.</li>
+</ol>
+
+<p>The source player's match history gets rewritten onto the destination player, and the source is permanently deleted.</p>
+
+<div class="callout warn">
+  <strong>Merge is destructive and can't be undone.</strong> Double-check you picked the right destination.
+</div>
+
+<h2>Auto-Repair (Toolbar Wand)</h2>
+
+<p>The <strong>Repair</strong> button (wand icon, top-left toolbar) runs an automatic deduplication pass. It scans for orphaned duplicates from older CSV imports and consolidates them. Safe to run any time — if there's nothing to fix, it just tells you so.</p>
+
+<h2>Graduation Year</h2>
+
+<p>The graduation year is used for filtering in the Statistics dashboard (e.g. "Class of 2028 only"). It's optional and can be added/edited at any time.</p>
+
+<h2>Sharing the Roster with Parents</h2>
+
+<p>Tap the <strong>QR</strong> icon at the top of the roster manager to open the share screen. This generates a QR code parents can scan in their copy of the app. See <a href="sharing.html">Sharing &amp; Export</a> for details.</p>
+
+<h2>Roster Version</h2>
+
+<p>Every time you add, edit, or remove a player, the roster version increments. Parents who have an older version see a warning that their tracked-match player may no longer be on the current roster.</p>
+
+<div class="footer-nav">
+  <a href="getting-started.html">← Getting Started</a>
+  <a href="scoring.html">Next: Scoring a Match →</a>
+</div>
+
+</body>
+</html>

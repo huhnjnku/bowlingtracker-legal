@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scoring a Match — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  .btn { display: inline-block; background: var(--brand-dim); color: var(--brand); border-radius: 4px; padding: 2px 8px; font-weight: 600; font-size: 0.92em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--brand-dim); color: var(--brand); }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Scoring a Match</h1>
+
+<p>The <strong>Log Match</strong> tab is where you actually score. This walkthrough covers the full flow: creating a squad, picking a format, entering scores, and saving.</p>
+
+<h2>Adding a Squad Workspace</h2>
+
+<p>Every match belongs to a <em>squad</em> — a named team + pool combination (e.g. <em>Boys Varsity</em>). Tap <strong>Add Squad</strong> to open a new workspace.</p>
+
+<ul>
+  <li><strong>Live Match Scoring off</strong> — you pick from up to six preset slots (Boys Varsity, Girls JV, etc.) that you configured in Settings.</li>
+  <li><strong>Live Match Scoring on</strong> — you pick from your published <code>CoachSquad</code> records (see <a href="live-match-scoring.html">Live Match Scoring</a>).</li>
+</ul>
+
+<p>You can open multiple squad workspaces at once — say, Varsity and JV bowling the same night — and swipe between them via the chip row at the top.</p>
+
+<h2>Picking a Match Format</h2>
+
+<p>Each squad workspace has a format picker (only shown if you haven't disabled formats in Settings):</p>
+
+<table>
+  <tr><th>Format</th><th>Use for</th><th>Opponent scoring</th></tr>
+  <tr>
+    <td><strong>Head to Head (H2H)</strong></td>
+    <td>Single dual meet, tri-match, or quad-match</td>
+    <td>Yes — you score both teams</td>
+  </tr>
+  <tr>
+    <td><strong>Tournament</strong></td>
+    <td>Baker + individual formats at a tournament event</td>
+    <td>Only your team</td>
+  </tr>
+  <tr>
+    <td><strong>Open Tracking</strong></td>
+    <td>Practice sessions or unofficial scoring</td>
+    <td>No — this is a self-only format</td>
+  </tr>
+</table>
+
+<h3>H2H Sub-Format (Single / Tri / Quad)</h3>
+
+<p>When you pick H2H, a second picker appears:</p>
+
+<ul>
+  <li><strong>Single</strong> — 1 opponent, the classic dual meet.</li>
+  <li><strong>Tri-Match</strong> — 2 opponents, all three teams on the same lanes.</li>
+  <li><strong>Quad-Match</strong> — 3 opponents.</li>
+</ul>
+
+<p>Tri and quad matches unlock additional opponent name fields and generate separate scorecards per opponent.</p>
+
+<h2>Configuring the Match</h2>
+
+<h3>Squad Name</h3>
+<p>Editable text field. In Live Match Scoring mode this is locked once the workspace is created (renaming would break the sync link), except for Open Tracking where you can rename freely.</p>
+
+<h3>Roster Pool</h3>
+<p><strong>Boys</strong> or <strong>Girls</strong>. Determines which players appear in the roster picker below. In Live Match Scoring mode this is also locked for H2H and Tournament, but editable for Open Tracking.</p>
+
+<h3>Opponent Name(s)</h3>
+<p>Type-ahead autocomplete pulls suggestions from your match history. For tri/quad, additional opponent fields appear ("Opponent 2", "Opponent 3").</p>
+
+<h3>Tournament Name</h3>
+<p>Only for Tournament format. Optional; autocompletes from history.</p>
+
+<h3>League Match Toggle</h3>
+<p>H2H only. Marks the match as league play for filtering purposes in Statistics.</p>
+
+<h3>Location (Alley/Lane)</h3>
+<p>Free-text; autocompletes from history. Used in PDFs and exports.</p>
+
+<h3>Oil Pattern</h3>
+<p><strong>House Pattern</strong> or <strong>Sport Pattern</strong>. If Sport, a text field appears for the specific pattern name (e.g. <em>Silk Road</em>). This shows up in Statistics under "condition splits."</p>
+
+<h2>The Scorecard Grid</h2>
+
+<p>Below the config, you get one big grid per team. For H2H you switch between your team and each opponent via segmented tabs at the top of the scorecard section.</p>
+
+<h3>Rows</h3>
+<ul>
+  <li><strong>Starters 1-8</strong> — always visible</li>
+  <li><strong>Subs 1-3</strong> — for late substitutions</li>
+  <li><strong>Baker row</strong> — for baker-format games (usually 3-6 baker games per match)</li>
+</ul>
+
+<h3>Columns</h3>
+<ul>
+  <li><strong>Player</strong> — roster picker. Only shows players in the current pool, minus anyone already assigned in another open squad workspace (to prevent double-booking).</li>
+  <li><strong>Game 1 through Game 6</strong> — score fields, 0-300. Blank = didn't bowl this game.</li>
+  <li><strong>Pin Track</strong> — button that opens the live pin-tracking canvas for that player/game combination.</li>
+</ul>
+
+<div class="callout info">
+  <strong>Baker vs. individual pins.</strong> Pin telemetry for individual games and baker games are tracked separately. Baker pins never count toward per-player individual averages — see <a href="statistics.html">Statistics</a>.
+</div>
+
+<h2>Live Pin Tracking</h2>
+
+<p>Tap the <strong>Pin Track</strong> button next to any game to open the pin canvas. You tap pins to mark them as knocked down or standing, and the scorecard subtotal updates live.</p>
+
+<ul>
+  <li><strong>Auto-strike default</strong> — the first ball defaults to a strike; tap pins that are still standing to correct.</li>
+  <li><strong>Auto-advance</strong> — shortcut buttons (Strike / Spare / Clear Deck) auto-advance to the next frame.</li>
+  <li><strong>10th-frame ball 3</strong> — auto-shown when frame 10 ball 1 is a strike or ball 2 is a spare.</li>
+  <li><strong>Clear game data</strong> — a toolbar button lets you wipe pin data for the current game if you need to start over.</li>
+</ul>
+
+<div class="callout">
+  <strong>Pin telemetry never overwrites your scoresheet totals.</strong> If your typed score and your pin-derived score disagree, the app shows an amber banner on the match history card so you can review — but the scoresheet always wins.
+</div>
+
+<h2>Multiple Squads at Once</h2>
+
+<p>When two or more workspaces are open, a blue banner may appear at the top of the Additional Configurations drawer: <strong>Match Format Sync Manager</strong>. It's shown when squads have mismatched Format, Opponent, Alley, or Oil settings.</p>
+
+<p>Toggle the fields you want synced and tap <strong>Apply Selected Settings to All Teams</strong>. Useful for the common case of Varsity and JV both bowling the same opponent on the same lanes with the same oil.</p>
+
+<h2>Saving the Match</h2>
+
+<p>When you're done:</p>
+
+<ol>
+  <li>Verify all scores and lineups.</li>
+  <li>Tap <strong>Save - Match Complete</strong> (green button).</li>
+  <li>If you have partial pin tracking (some games incomplete), you'll get a confirmation dialog. You can save anyway — the pin-derived stats will just be missing for those games.</li>
+</ol>
+
+<p>The match is saved locally. If Live Match Scoring is on and the squad is shared, the final snapshot is also pushed to iCloud.</p>
+
+<h2>Clearing the Match</h2>
+
+<p>The red <strong>Clear All Current Match Data</strong> button dumps every open workspace. Use it after a successful save, or if you want to start over from scratch. Requires a confirmation.</p>
+
+<h2>Historical Edit Mode</h2>
+
+<p>If you tap <strong>Edit</strong> from a match's detail view in History, the Log Match tab opens in a special mode:</p>
+
+<ul>
+  <li>A blue banner at the top shows <em>Modifying Past Record</em>.</li>
+  <li>The workspace is pre-populated with the historical match data.</li>
+  <li>Every field is editable — scores, lineups, opponent, date, oil pattern.</li>
+  <li>The Save button changes to <strong>Update Record</strong>.</li>
+  <li>The Clear button becomes <strong>Cancel Update</strong>.</li>
+</ul>
+
+<p>Changes overwrite the existing match — no duplicate is created.</p>
+
+<div class="callout warn">
+  <strong>Editing a match doesn't automatically republish it if it was previously shared.</strong> If Live Match Scoring is on and you edit a shared match, the update publishes on save — but co-coaches on other devices only see it when their app refreshes.
+</div>
+
+<div class="footer-nav">
+  <a href="roster.html">← Managing Your Roster</a>
+  <a href="history.html">Next: Match History →</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Parent Mode — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Parent Mode</h1>
+
+<p>Parent mode is a stripped experience for two things:</p>
+
+<ol>
+  <li>Helping the coach by tracking pin data during a match.</li>
+  <li>Following your bowler's team live from anywhere (Live Match Scoring subscribers only).</li>
+</ol>
+
+<p>To enter Parent mode from a fresh install, pick <strong>Parent</strong> on the mode selector. Existing users switch via Settings → App Mode.</p>
+
+<h2>The Four Parent Tabs</h2>
+
+<ol>
+  <li><strong>Track</strong> — record pin telemetry for a bowler in a specific match.</li>
+  <li><strong>Live</strong> — read-only live scoreboard from subscribed squads.</li>
+  <li><strong>Statistics</strong> — pin-derived stats for players you've tracked.</li>
+  <li><strong>Settings</strong> — colors and mode toggle.</li>
+</ol>
+
+<h2>First-Time Setup: Scan a Coach Roster</h2>
+
+<p>Before you can track anything, you need a roster from your bowler's coach. Ask them to open Settings → Roster → tap the QR icon → show you the QR code.</p>
+
+<ol>
+  <li>In Parent mode: <strong>Track</strong> tab.</li>
+  <li>Tap the person icon in the top-right toolbar → <strong>Rosters</strong>.</li>
+  <li>Tap <strong>Scan Coach Roster</strong>.</li>
+  <li>Allow camera access if prompted.</li>
+  <li>Point your camera at the coach's QR code.</li>
+  <li>Preview appears showing the school, pool, version, and player list.</li>
+  <li>Tap <strong>Save Roster</strong>.</li>
+</ol>
+
+<p>The roster is stored locally on your device. It doesn't sync anywhere — it's just a lookup table so you know which player you're tracking.</p>
+
+<div class="callout info">
+  <strong>Same coach, both pools?</strong> If your bowler's coach runs both boys and girls squads, they'll share two QR codes — one per pool. Scan both. Your device supports multiple rosters from multiple schools too, if you have kids at different programs.
+</div>
+
+<h2>The Track Tab</h2>
+
+<h3>Starting a New Tracked Match</h3>
+
+<ol>
+  <li>Tap <strong>Start New Match</strong> (blue button).</li>
+  <li>Pick the roster (which team + pool your bowler is on).</li>
+  <li>Pick your bowler from the player list.</li>
+  <li>Set the match date.</li>
+  <li>Optionally add a squad name (helps you distinguish similar matches later).</li>
+  <li>Tap <strong>Start Tracking</strong>.</li>
+</ol>
+
+<h3>Tracking During the Match</h3>
+
+<p>The tracked-match card opens the pin tracker canvas. Every ball you tap:</p>
+
+<ul>
+  <li>Tap standing pins as they're hit down.</li>
+  <li>Use the shortcut buttons: <strong>Strike</strong> (X), <strong>Spare</strong> (/), <strong>Clear Deck</strong>.</li>
+  <li>The frame auto-advances on strike or spare.</li>
+  <li>10th-frame ball 3 appears automatically after a strike or spare in ball 1/2.</li>
+</ul>
+
+<p>You can leave and return — everything is auto-saved locally.</p>
+
+<h3>Warning Badge</h3>
+
+<p>If a player is missing from your latest roster (coach renamed them, removed them, or you scanned an older QR), an orange warning triangle appears on the match card with the note: <em>"This player isn't in your latest roster — ask the coach for a refreshed QR."</em></p>
+
+<h3>Sharing Your Pin Data Back to the Coach</h3>
+
+<p>Once the match is done, tap into the match → use the trailing menu to <strong>Export</strong> a parent packet. This creates a file you can AirDrop or email to the coach; they import it via the History tab.</p>
+
+<h3>Deleting a Tracked Match</h3>
+
+<p>Swipe left on the match card → tap Delete. Confirmation dialog.</p>
+
+<h2>The Live Tab</h2>
+
+<p>The Live tab shows a read-only scoreboard for any squad you're subscribed to. Requires:</p>
+
+<ul>
+  <li>The coach has Live Match Scoring enabled and has published the squad.</li>
+  <li>You've subscribed via the invite URL.</li>
+</ul>
+
+<h3>Subscribing to a Live Squad</h3>
+
+<p>The coach sends you an invite URL via text, email, or whatever.</p>
+
+<ul>
+  <li><strong>Best case</strong> — tap the URL, iOS opens the app, and you see: <em>"You're now subscribed to Boys Varsity. Live scores will appear here as your coach scores matches."</em></li>
+  <li><strong>Fallback</strong> — tap doesn't work? Open the Live tab → tap <strong>Paste Share URL</strong> → paste the URL manually.</li>
+</ul>
+
+<h3>Multiple Squads</h3>
+
+<p>You can subscribe to several squads (varsity, JV, sibling's team). A pill bar at the top of the Live tab lets you switch between them.</p>
+
+<h3>What the Scoreboard Shows</h3>
+
+<ul>
+  <li><strong>Header</strong> — squad name, opponent name(s), tournament name (as applicable).</li>
+  <li><strong>Big totals</strong> — the current team score for each side. For quad matches, all four totals shown compactly.</li>
+  <li><strong>Player grid</strong> — 8 starters + 3 subs, one row each, with per-game columns.</li>
+  <li><strong>Baker row</strong> — highlighted purple if any baker scores exist.</li>
+  <li><strong>Opponent summary</strong> — for H2H matches, each opponent's per-bowler scores in an anonymized format ("Bowler 1: 280, 150"). Names are redacted for privacy.</li>
+</ul>
+
+<div class="callout">
+  <strong>Empty cells show as a dash.</strong> Games your bowler hasn't bowled yet display "—" instead of 0 — a 0 would look like they bowled a really bad game.
+</div>
+
+<h3>Empty State</h3>
+
+<p>If no match is currently live, you see: <em>"No live scores have been posted today. You'll see live scores here as soon as your coach starts scoring a match."</em></p>
+
+<h2>Live Match Notifications</h2>
+
+<p>The first time you open the Live tab, iOS asks whether to allow notifications. Allow, and you'll get:</p>
+
+<ul>
+  <li>A ping when the coach starts scoring a match.</li>
+  <li>A ping with the final score when the match ends.</li>
+  <li>A ping any time any bowler on the squad hits 279 or higher.</li>
+  <li>A ping if the team bowls a baker game of 279 or higher.</li>
+</ul>
+
+<p>Notifications only fire from the background. When you're actively in the app, they stay suppressed — the Live tab shows the updates instead.</p>
+
+<div class="callout info">
+  <strong>Can't get notifications?</strong> Settings → Notifications → Bowling Tracker on your iPhone. Make sure Allow Notifications is on. If they still don't fire, it's likely that the coach hasn't scored any new events since you subscribed.
+</div>
+
+<h2>The Statistics Tab</h2>
+
+<p>Stats derived entirely from the pin data you've tracked yourself. Only shows bowlers you've personally tracked.</p>
+
+<ul>
+  <li>Match count</li>
+  <li>Completed games</li>
+  <li>Average (from pin telemetry, not the coach's typed scores)</li>
+  <li>Strike percentage</li>
+  <li>Spare percentage</li>
+</ul>
+
+<p>If you haven't tracked anyone yet, you see the empty state: <em>"No tracked players yet. Track a match in the Track tab and pin telemetry stats for that bowler will show up here."</em></p>
+
+<h2>The Parent Settings Tab</h2>
+
+<p>Minimal:</p>
+<ul>
+  <li>Brand color pickers (Primary/Secondary)</li>
+  <li>App Mode toggle to switch back to Coach</li>
+</ul>
+
+<div class="footer-nav">
+  <a href="google-sheets.html">← Google Sheets</a>
+  <a href="sharing.html">Next: Sharing &amp; Export →</a>
+</div>
+
+</body>
+</html>

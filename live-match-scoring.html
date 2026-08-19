@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Live Match Scoring — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--brand-dim); color: var(--brand); }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Live Match Scoring</h1>
+
+<p>Live Match Scoring (LMS) is the app's one paid feature. A single $4.99 in-app purchase unlocks it forever on any device signed into the same Apple ID.</p>
+
+<h2>What LMS Actually Does</h2>
+
+<p>LMS is an iCloud-backed sync layer bolted on top of the app's normal scoring flow. It uses Apple's CloudKit, so your data flows through your own iCloud account — not any third-party server.</p>
+
+<ol>
+  <li><strong>Coach-to-coach sync</strong> — score varsity and JV on separate devices, everyone stays in sync.</li>
+  <li><strong>Parent live scoring</strong> — parents follow the match from anywhere in real time.</li>
+  <li><strong>Push notifications</strong> — parents get pinged when the match starts, when it ends, and on any 279+ game.</li>
+  <li><strong>Google Sheets bridge</strong> — optional live push to a spreadsheet for public broadcasts. See <a href="google-sheets.html">Google Sheets</a>.</li>
+</ol>
+
+<h2>Three Sync States</h2>
+
+<p>Every squad has one of three sync states, indicated by pills in Settings:</p>
+
+<table>
+  <tr><th>State</th><th>Pill</th><th>Meaning</th></tr>
+  <tr>
+    <td><strong>Local Only</strong></td>
+    <td><em>(no pill)</em></td>
+    <td>The squad exists on this device only. Matches you score stay local. Nothing pushes to iCloud.</td>
+  </tr>
+  <tr>
+    <td><strong>Synced</strong></td>
+    <td>Synced (green cloud icon)</td>
+    <td>The squad is published to iCloud. Matches you save are automatically pushed. Other devices signed into <em>your</em> Apple ID can see it, but no one else can.</td>
+  </tr>
+  <tr>
+    <td><strong>Shared</strong></td>
+    <td>Synced + Shared (people icon)</td>
+    <td>You've generated an invite URL. Anyone you send that URL to (co-coaches, parents) can subscribe.</td>
+  </tr>
+</table>
+
+<h2>Setting Up LMS from Scratch</h2>
+
+<h3>Step 1 — Turn on LMS</h3>
+<p>Settings → toggle <strong>Use Live Match Scoring</strong>. First tap opens the paywall (unless you're grandfathered). Purchase confirms via StoreKit; the toggle then flips on.</p>
+
+<h3>Step 2 — Own or Join?</h3>
+<p>If you'll be the primary coach creating squads for your program, keep <strong>I create and share squads</strong> on. If another coach owns the squads and will invite you, flip it off.</p>
+
+<h3>Step 3 — Create a Squad (Owner Path)</h3>
+<ol>
+  <li>Tap <strong>Add Squad</strong>.</li>
+  <li>Enter the squad name (e.g. Boys Varsity).</li>
+  <li>Pick the pool (Boys or Girls).</li>
+  <li>Tap <strong>Save</strong>.</li>
+</ol>
+<p>The squad is now <strong>Local Only</strong>. It shows up in the Log Match tab's Add Squad menu.</p>
+
+<h3>Step 4 — Publish</h3>
+<p>In the squad row, tap <strong>Publish</strong>. This creates the squad record in iCloud and enables sharing. Status flips to <strong>Synced</strong>.</p>
+
+<h3>Step 5 — Share</h3>
+<p>Tap the <strong>Share</strong> icon in the squad row. iOS opens the CloudKit share sheet. Tap <strong>Copy Link</strong>, then send it to parents and co-coaches via text, email, or whatever channel you use.</p>
+
+<h3>Step 6 — Backfill History (Optional)</h3>
+<p>When you first publish, the app offers to backfill the current season's matches. Say yes and every existing match for that squad gets pushed so co-coaches see the historical data too.</p>
+
+<p>You can push more history later with the <strong>Push History</strong> button — it does a one-shot publish of every match for the squad, all seasons, showing a toast summary when done.</p>
+
+<h2>Joining a Squad Someone Else Owns</h2>
+
+<p>Two paths:</p>
+
+<h3>Path A — Tap the invite URL</h3>
+<p>If iOS lets you tap the URL, it opens the app and pops a "You've been added to {squadName} as a co-coach" alert. Done — the squad appears in <strong>Squads You Co-Coach</strong>.</p>
+
+<h3>Path B — Paste the URL</h3>
+<p>If iOS shows a "you need a newer version" error (common pre-launch), use <strong>Join via URL</strong> in Settings. Paste the URL manually. Same result.</p>
+
+<div class="callout info">
+  <strong>Paste-URL fallback exists for a reason.</strong> Before an app is live on the App Store, iOS can't verify the receiving app. Once the coach app is publicly available, tap-to-accept starts working — and the paste-URL button auto-restores state on next launch.
+</div>
+
+<h2>How Publishing Works During a Match</h2>
+
+<p>While you're scoring a match with LMS on:</p>
+
+<ol>
+  <li>Every score change triggers a debounced publish (2-second delay).</li>
+  <li>The snapshot goes up to iCloud.</li>
+  <li>Co-coaches and parents see the update within seconds.</li>
+</ol>
+
+<p>The debounce means rapid typing (frame-by-frame corrections) coalesces into one publish, not one per keystroke. Saves battery and network.</p>
+
+<h2>Match Started / Final Notifications</h2>
+
+<p>Parents subscribed to your squad get:</p>
+
+<ul>
+  <li><strong>Match Started</strong> — fires when you enter your first score. Wording: <em>"Boys Varsity just started their match vs Central High, follow live scoring in the Bowling Match Tracker App."</em></li>
+  <li><strong>Match Complete</strong> — fires when you tap Save. Wording: <em>"Final: Batavia 2500, Central 2350"</em> (adjusts to include all opponents for tri/quad).</li>
+  <li><strong>Individual 279+</strong> — fires the first time a player hits 279 or higher in a game. Example: <em>"Alice just bowled a 300!"</em></li>
+  <li><strong>Baker 279+</strong> — same idea for baker games. <em>"The team just bowled a 285 Baker game!"</em></li>
+</ul>
+
+<div class="callout">
+  <strong>Notifications never fire for Open Tracking matches.</strong> Open Tracking is designed for practice and doesn't publish anywhere.
+</div>
+
+<h2>Editing Shared Matches</h2>
+
+<p>If you edit a match that was previously published, the update republishes on save. Co-coaches see it the next time their app refreshes. Deletions publish a tombstone so co-coaches see the match disappear.</p>
+
+<h2>Co-Coach Zone Routing</h2>
+
+<p>When a co-coach scores a match for a shared squad, their save publishes to the <em>owner's</em> iCloud zone — not the co-coach's own private one. This is invisible to you as a user, but it's why the ownership toggle matters: it tells the app whether to expect this squad's data in your zone or someone else's.</p>
+
+<h2>What Happens if You Turn LMS Off</h2>
+
+<ul>
+  <li>Local matches stay local. No changes to your on-device data.</li>
+  <li>Published squad records stay in iCloud — the app just stops publishing new updates.</li>
+  <li>Co-coaches and parents can still see historical data you already published.</li>
+  <li>If you turn LMS back on later, the squads reappear and publishing resumes.</li>
+</ul>
+
+<h2>Grandfather Rule</h2>
+
+<p>The first time you launch the paid version of the app, if you already had a <code>CoachSquad</code> from a pre-launch build, LMS unlocks automatically for free. You never see the paywall. This is one-way and permanent — even if you refund a purchase later, grandfather status persists.</p>
+
+<h2>Restore Purchases</h2>
+
+<p>If you install the app on a new device (same Apple ID), open the paywall → tap <strong>Restore Purchases</strong>. Your prior purchase applies to the new device.</p>
+
+<div class="footer-nav">
+  <a href="settings.html">← Settings Reference</a>
+  <a href="google-sheets.html">Next: Google Sheets →</a>
+</div>
+
+</body>
+</html>

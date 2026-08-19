@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings Reference — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Settings Reference</h1>
+
+<p>Every option in the Settings tab, top to bottom. This is the coach-mode Settings — parent mode has a stripped subset.</p>
+
+<h2>School System Profile</h2>
+
+<h3>School Name</h3>
+<p>Text field. Appears on PDFs, in exports, and in your shared match snapshots. Change it and tap <strong>Save Profile Settings</strong>.</p>
+
+<h2>Advanced Match &amp; Theme Setup</h2>
+
+<p>A collapsible section holding several sub-groups.</p>
+
+<h3>Brand Color Schemes</h3>
+<ul>
+  <li><strong>Primary color</strong> — used for accent buttons and highlights.</li>
+  <li><strong>Secondary color</strong> — used for the secondary format badge and some UI accents.</li>
+</ul>
+<p>Pick your school colors. Saved when you tap <strong>Save Profile Settings</strong>.</p>
+
+<h3>Enabled Tracking Match Formats</h3>
+<ul>
+  <li><strong>Show Head to Head Format</strong> — toggle. Default on. When off, the H2H option disappears from the Match Format picker in the Log Match tab.</li>
+  <li><strong>Show Tournament Format</strong> — same idea for Tournament.</li>
+</ul>
+<div class="callout">
+  <strong>You must leave at least one on.</strong> If you're a league-only coach, you can disable Tournament to declutter the picker.
+</div>
+
+<h3>Squad Naming Presets</h3>
+<p>Up to six preset slots for the Add Squad menu in Log Match. Each slot has:</p>
+<ul>
+  <li>A squad name text field</li>
+  <li>A gender segmented picker (Boys / Girls)</li>
+</ul>
+<p>Default fills:</p>
+<ol>
+  <li>Boys Varsity</li>
+  <li>Girls Varsity</li>
+  <li>Boys JV</li>
+  <li>Girls JV</li>
+  <li>Boys Freshmen</li>
+  <li>Girls Freshmen</li>
+</ol>
+<p>Leaving a name blank falls back to the built-in default for that slot.</p>
+
+<div class="callout warn">
+  <strong>Hidden when Live Match Scoring is on.</strong> If you flip on LMS, the presets are replaced by real <code>CoachSquad</code> records you manage directly in the LMS section below.
+</div>
+
+<h2>Roster (Toolbar Button)</h2>
+
+<p>The <strong>people icon</strong> in the top-right toolbar opens the roster manager. See <a href="roster.html">Managing Your Roster</a>.</p>
+
+<h2>App Mode</h2>
+
+<p>A single toggle button showing your current mode:</p>
+<ul>
+  <li><strong>Coach — full tracking &amp; roster tools</strong> (currently in Coach mode)</li>
+  <li><strong>Parent — stripped tracker for a bowler's pin data</strong> (currently in Parent mode)</li>
+</ul>
+<p>Tap <strong>Switch to Parent</strong> or <strong>Switch to Coach</strong> to change. A confirmation dialog warns what the change entails.</p>
+
+<h2>Live Match Scoring</h2>
+
+<h3>Use Live Match Scoring (main toggle)</h3>
+<p>When off, the app is fully local. When on, you get co-coach sync, parent live scoring, and (optionally) Google Sheets integration.</p>
+
+<p><strong>Turning it on for the first time</strong> shows the paywall unless you're grandfathered. Once purchased, a one-time warning appears: <em>"Turning Live Match Scoring on mid-season can split your season stats if new squad names don't exactly match your existing history."</em></p>
+
+<div class="callout info">
+  <strong>Turning it off doesn't cost you anything.</strong> Your existing matches stay. If you turn it back on later, your CoachSquads reappear as they were.
+</div>
+
+<h3>I create and share squads (ownership toggle)</h3>
+<p>Appears when LMS is on. Two use cases:</p>
+<ul>
+  <li><strong>On</strong> — You're the primary coach for at least one squad and will invite co-coaches and parents.</li>
+  <li><strong>Off</strong> — Another coach owns the squads and will send you an invite. You'll join squads instead of creating them.</li>
+</ul>
+
+<h3>Squads You Own</h3>
+<p>Only shown when ownership toggle is on. Lists every <code>CoachSquad</code> you've created.</p>
+
+<p><strong>Add Squad</strong> button opens a sheet with:</p>
+<ul>
+  <li>Squad Name text field</li>
+  <li>Pool selector (Boys / Girls)</li>
+  <li>Save button</li>
+</ul>
+
+<p>Each squad row shows:</p>
+<ul>
+  <li>Squad name and pool pill</li>
+  <li>Status pills: <strong>Synced</strong> (published to iCloud), <strong>Shared</strong> (you've shared with co-coaches or parents), <strong>Sheets</strong> (Google Sheets webhook configured)</li>
+  <li><strong>Publish</strong> button — pushes the squad up to iCloud. Enables sharing.</li>
+  <li><strong>Share</strong> icon — opens the iCloud share sheet; copy the link for parents/co-coaches.</li>
+  <li><strong>Push History</strong> button — one-shot publish of every existing match for this squad.</li>
+  <li><strong>Sheets</strong> icon — Google Sheets webhook config. See <a href="google-sheets.html">Google Sheets</a>.</li>
+  <li><strong>Delete</strong> icon — removes the squad locally and publishes a tombstone to any co-coaches.</li>
+</ul>
+
+<h3>Squads You Co-Coach</h3>
+<p>Lists squads owned by someone else that you've been invited to. Same status pills as owned squads. The delete button is replaced with a <strong>Leave</strong> button — leaving unsubscribes you but doesn't delete the owner's data.</p>
+
+<h3>Join via URL</h3>
+<p>A dedicated button that opens a paste-URL sheet. Useful when the coach shared an invite link via text/email and iOS's tap-to-accept doesn't work (a common pre-launch TestFlight issue).</p>
+
+<p>Paste the invite URL → tap <strong>Save</strong> → the squad appears in your Co-Coach list.</p>
+
+<h2>Debug Options (DEBUG builds only)</h2>
+
+<h3>Lane Camera Tab (DEBUG)</h3>
+<p>Enables a hidden tab that uses your phone's camera plus computer vision to try to auto-detect ball position, pin position, and rotation on the lane. Currently in R&amp;D and hidden from released builds — you won't see this toggle in TestFlight or App Store builds.</p>
+
+<h2>Parent Mode Settings</h2>
+
+<p>When in Parent mode, Settings is trimmed to:</p>
+<ul>
+  <li>Brand colors</li>
+  <li>App Mode toggle (to switch back to Coach)</li>
+</ul>
+
+<p>Everything coach-related is hidden.</p>
+
+<div class="footer-nav">
+  <a href="statistics.html">← Statistics</a>
+  <a href="live-match-scoring.html">Next: Live Match Scoring →</a>
+</div>
+
+</body>
+</html>

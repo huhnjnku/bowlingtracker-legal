@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Match History — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  .btn { display: inline-block; background: var(--brand-dim); color: var(--brand); border-radius: 4px; padding: 2px 8px; font-weight: 600; font-size: 0.92em; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Match History</h1>
+
+<p>The <strong>Historical Matches</strong> tab shows every saved match sorted newest-first. It's the hub for reviewing, sharing, editing, and exporting matches.</p>
+
+<h2>Filtering the List</h2>
+
+<p>At the top, the <strong>View History</strong> picker lets you narrow the list:</p>
+
+<ul>
+  <li><strong>Last 7 Days</strong> — quick recent-view.</li>
+  <li><strong>Custom Range</strong> — reveals start and end date pickers.</li>
+  <li><strong>School Year</strong> — dynamically populated based on the earliest match you have. Uses the standard August 1 – July 31 school-year boundary.</li>
+  <li><strong>Show All</strong> — every match in the app.</li>
+</ul>
+
+<h2>Match Card Anatomy</h2>
+
+<p>Each match in the list shows:</p>
+
+<ul>
+  <li>Date (MM-dd-yyyy)</li>
+  <li>Squad name (e.g. Boys Varsity)</li>
+  <li>Format badge — <strong>H2H</strong> or <strong>Tournament</strong> in your brand colors</li>
+  <li>Card title — opponent name (H2H) or tournament name (Tournament)</li>
+</ul>
+
+<p>Tap any card to open an <strong>action sheet</strong> with per-match options.</p>
+
+<h2>Per-Match Action Sheet</h2>
+
+<p>Tap a match card and you'll see these buttons:</p>
+
+<h3>Summary</h3>
+<p>Opens the <strong>Detailed History Card</strong> for that match. Shows the full breakdown:</p>
+<ul>
+  <li>Match metadata (squad, opponent, date, location, oil pattern)</li>
+  <li>Per-player game scores with high game highlighted</li>
+  <li>Baker set scores</li>
+  <li>Final team totals and W/L result</li>
+  <li>An <strong>Edit</strong> button at the top (routes to Log Match in historical edit mode)</li>
+  <li>An amber <strong>Score Mismatch</strong> banner if any player's typed score differs from their pin-derived total (see below)</li>
+</ul>
+
+<h3>Share to Coach</h3>
+<p>Exports the match as a <code>.bowlingmatch</code> file (CSV format under the hood). Opens the iOS share sheet — AirDrop, Mail, Messages, Files, etc.</p>
+<p>The receiving coach's app will detect the file on tap and offer to import it. See <a href="sharing.html">Sharing &amp; Export</a>.</p>
+
+<h3>Export JSON (Single Match)</h3>
+<p>Exports a <code>.bowlingmatchjson</code> file. This preserves everything CSV can't — tri/quad opponents, full pin telemetry, oil pattern details, baker attribution. Preferred format for round-trip backup.</p>
+
+<h3>Export Season JSON</h3>
+<p>Exports a <code>.bowlingseasonjson</code> containing multiple matches, the roster snapshot, and all telemetry. Useful for archiving a whole season or moving data between devices.</p>
+
+<h3>Import Parent Data</h3>
+<p>Opens the parent-packet importer. If a parent tracked pin data for one of your bowlers during this match, they can export it as a parent packet and send it to you — this button imports that data into the match.</p>
+
+<h3>Export PDF Match Overview</h3>
+<p>Opens the PDF options sheet:</p>
+<ul>
+  <li><strong>Include opponent per-player scores</strong> — off by default. When off, the opponent block is anonymized (bowler 1, bowler 2, etc.).</li>
+  <li><strong>Generate</strong> — produces the PDF and opens a Mail composer with it attached.</li>
+</ul>
+<p>The PDF is the coach-facing match report — one page (or two for quad matches) with squad totals, per-bowler stats, and the baker set.</p>
+
+<h3>Delete</h3>
+<p>Confirmation dialog, then removes the match locally. If Live Match Scoring is on and the squad was shared, a "tombstone" is published to iCloud so co-coaches also see the deletion.</p>
+
+<h2>Swipe-to-Delete</h2>
+
+<p>Swipe left on any match card in the list for a quicker delete. Same confirmation dialog.</p>
+
+<h2>Score Mismatch Banner</h2>
+
+<p>If any player's typed score doesn't match the score computed from their pin telemetry for the same game, the detailed history card shows an amber banner listing the specific mismatches.</p>
+
+<div class="callout">
+  <strong>Which score "wins"?</strong> The scoresheet total is always authoritative. The banner just flags the discrepancy so you can review. This is intentional — pin telemetry can be incomplete or entered mid-frame, but the final total is what counts.
+</div>
+
+<h2>Importing Matches</h2>
+
+<p>The <strong>Import</strong> button in the toolbar (top-right) opens a file picker. Supported formats:</p>
+
+<ul>
+  <li><code>.bowlingmatch</code> — single-match AirDrop from another coach</li>
+  <li><code>.bowlingmatchjson</code> — single-match JSON</li>
+  <li><code>.bowlingseasonjson</code> — bulk season import</li>
+  <li><code>.csv</code> / <code>.txt</code> — legacy 216-column coach CSV format</li>
+</ul>
+
+<p>Imports match on UUID — importing a match that already exists locally will overwrite it.</p>
+
+<h2>Auto-Backfill (Live Match Scoring)</h2>
+
+<p>When you first publish a squad to iCloud (Live Match Scoring), the app offers to backfill the current season's matches. Say yes and all your existing matches for that squad get pushed up so co-coaches can see historical data too.</p>
+
+<p>You can also manually push a broader window later via the <strong>Push History</strong> button in Settings. See <a href="live-match-scoring.html">Live Match Scoring</a>.</p>
+
+<div class="footer-nav">
+  <a href="scoring.html">← Scoring a Match</a>
+  <a href="statistics.html">Next: Statistics →</a>
+</div>
+
+</body>
+</html>

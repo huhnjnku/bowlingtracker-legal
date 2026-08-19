@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Getting Started — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+  .btn { display: inline-block; background: var(--brand-dim); color: var(--brand); border-radius: 4px; padding: 2px 8px; font-weight: 600; font-size: 0.92em; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Getting Started</h1>
+
+<h2>First Launch</h2>
+
+<p>The first time you open Bowling Tracker, you'll see a mode picker with two big buttons:</p>
+
+<ul>
+  <li><span class="btn">Coach</span> — "Track full matches, manage your roster, log scores and statistics."</li>
+  <li><span class="btn">Parent</span> — "Track pin telemetry for your bowler and share it back to their coach."</li>
+</ul>
+
+<p>Pick whichever fits. You can switch later in Settings — nothing here is permanent.</p>
+
+<h2>Coach Onboarding</h2>
+
+<p>If you chose <strong>Coach</strong>, you'll be asked to name your school. This appears in exports, PDFs, and (optionally) in shared match snapshots. Enter something like <em>Batavia High School</em> and tap <strong>Get Started</strong>.</p>
+
+<p>That's it — you'll land on the main Coach interface with four tabs:</p>
+
+<ol>
+  <li><strong>Log Match</strong> — score a match live, one squad or several at once</li>
+  <li><strong>Historical Matches</strong> — view, edit, share, and export past matches</li>
+  <li><strong>Statistics</strong> — season averages, per-player breakdowns, W-L records</li>
+  <li><strong>Settings</strong> — profile, colors, roster, format toggles, Live Match Scoring</li>
+</ol>
+
+<h2>Parent Onboarding</h2>
+
+<p>If you chose <strong>Parent</strong>, you'll see a confirmation screen and tap <strong>Enter Parent Mode</strong>. No setup required. Parent mode has four tabs:</p>
+
+<ol>
+  <li><strong>Track</strong> — track pin data for your bowler during a match</li>
+  <li><strong>Live</strong> — follow live scores from your coach (Live Match Scoring subscribers)</li>
+  <li><strong>Statistics</strong> — stats for bowlers you've tracked</li>
+  <li><strong>Settings</strong> — colors, mode switch</li>
+</ol>
+
+<p>To do anything useful in Parent mode you first need a <strong>coach roster</strong>. The coach shares one via a QR code — see <a href="parent-mode.html">Parent Mode</a> for the scan flow.</p>
+
+<h2>Switching Modes Later</h2>
+
+<p>Go to <strong>Settings</strong> → scroll to <strong>App Mode</strong> → tap <strong>Switch to Parent</strong> or <strong>Switch to Coach</strong>. A confirmation dialog warns you what will change.</p>
+
+<div class="callout">
+  <strong>Your data is preserved across mode switches.</strong> Coach-mode matches don't disappear when you jump into Parent mode — they're just hidden from that view. Switch back and they're all there.
+</div>
+
+<h2>Adding Your First Players</h2>
+
+<p>Before scoring your first match, you'll want a roster. Head to <strong>Settings → Roster</strong> (person icon in the toolbar) — that's the roster manager. See <a href="roster.html">Managing Your Roster</a> for the full walkthrough.</p>
+
+<h2>What Data Lives Where</h2>
+
+<p>By default, everything lives locally on your device using Apple's SwiftData. Nothing is sent to any developer server. If you enable Live Match Scoring, data syncs through <strong>your own iCloud account</strong> — the developer never sees it.</p>
+
+<div class="callout info">
+  <strong>Privacy note:</strong> The app uses no analytics, no ad networks, and no third-party tracking. See the <a href="https://huhnjnku.github.io/bowlingtracker-legal/privacy.html">Privacy Policy</a> for details.
+</div>
+
+<div class="footer-nav">
+  <a href="index.html">← User Guide</a>
+  <a href="roster.html">Next: Managing Your Roster →</a>
+</div>
+
+</body>
+</html>

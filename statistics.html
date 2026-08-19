@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Statistics — Bowling Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --brand: #1e6b3a; --brand-dim: #eaf5ee; --text: #222; --muted: #666; --border: #e2e2e2; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; line-height: 1.55; color: var(--text); }
+  h1 { border-bottom: 3px solid var(--brand); padding-bottom: 8px; }
+  h2 { margin-top: 2em; color: var(--brand); }
+  h3 { margin-top: 1.6em; }
+  .nav-back { color: var(--brand); text-decoration: none; font-size: 0.95em; }
+  .footer-nav { border-top: 1px solid var(--border); margin-top: 3em; padding-top: 18px; font-size: 0.95em; color: var(--muted); display: flex; justify-content: space-between; }
+  .footer-nav a { color: var(--brand); }
+  code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 0.92em; }
+  .callout { background: #fff8e1; border-left: 4px solid #f2b544; padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  .callout.info { background: #e7f2fd; border-left-color: #3b82f6; }
+  .callout.warn { background: #fdecea; border-left-color: #c0392b; }
+  ol li, ul li { margin: 6px 0; }
+</style>
+</head>
+<body>
+
+<p><a href="index.html" class="nav-back">← User Guide</a></p>
+
+<h1>Statistics Dashboards</h1>
+
+<p>The <strong>Statistics</strong> tab summarizes team and per-player performance. All stats are derived from your saved matches — there's no separate stats database to maintain.</p>
+
+<h2>Top Filters</h2>
+
+<p>Every stat on this page is scoped by the filters at the top. Change any of them and the numbers below update immediately.</p>
+
+<ul>
+  <li><strong>Season</strong> — dropdown of school years derived from your history. Uses the Aug 1 – Jul 31 boundary.</li>
+  <li><strong>Gender pool</strong> — Boys or Girls.</li>
+  <li><strong>Squad</strong> — All Squads, or a specific one (e.g. Boys Varsity).</li>
+  <li><strong>Format</strong> — All Formats, H2H Only, or Tourney Only.</li>
+  <li><strong>League</strong> — All Matches or League Only.</li>
+</ul>
+
+<h2>Team Metrics Cards</h2>
+
+<p>Four cards summarize the whole team under the current filter:</p>
+
+<ul>
+  <li><strong>Ind Avg</strong> — team-wide individual average across all games in scope.</li>
+  <li><strong>Baker Avg</strong> — team-wide baker average.</li>
+  <li><strong>Record</strong> — W-L (H2H format) or High Match (Tournament format).</li>
+  <li><strong>Include Multi</strong> — a small checkbox that only appears if any tri/quad matches are in scope. When on, tri/quad matches contribute pairwise W-L; when off (default), they're excluded from the record calculation.</li>
+</ul>
+
+<div class="callout info">
+  <strong>Why exclude tri/quad from W-L by default?</strong> A tri or quad match doesn't cleanly map to a single win or loss — you have three or four possible outcomes. The default keeps your record straightforward, and you can opt-in via the Include Multi toggle if you want the full picture.
+</div>
+
+<h2>Graduation Class Filter</h2>
+
+<p>Below the metric cards, a picker lets you narrow the player list:</p>
+
+<ul>
+  <li><strong>Active Roster</strong> — only players currently marked active.</li>
+  <li><strong>All Graduated</strong> — historical bowlers.</li>
+  <li><strong>Class of YYYY</strong> — a specific graduating class.</li>
+</ul>
+
+<h2>Player Cards</h2>
+
+<p>Below the filter, each player in scope gets a summary card:</p>
+
+<ul>
+  <li>Name and pool badge</li>
+  <li>High game</li>
+  <li>Average</li>
+  <li>Strike percentage</li>
+  <li>Spare percentage</li>
+  <li>Match count</li>
+</ul>
+
+<p>Tap any card to open the <strong>Individual Stats Detail</strong> view.</p>
+
+<h2>Individual Stats Detail</h2>
+
+<p>The per-player view breaks down that bowler's performance:</p>
+
+<ul>
+  <li>All top-level metrics (average, high game, strike/spare rates)</li>
+  <li>Season vs. career totals</li>
+  <li>Condition splits (House vs. Sport oil)</li>
+  <li>League vs. non-league breakdown</li>
+  <li>Baker pin telemetry (via read-time attribution — see below)</li>
+  <li>A performance timeline chart showing each game's score across the season</li>
+</ul>
+
+<h2>Baker vs. Individual Attribution</h2>
+
+<p>The app is careful about baker vs. individual games:</p>
+
+<div class="callout">
+  <strong>Baker pins never count toward per-player individual averages.</strong> A baker game rotates bowlers across frames, so it doesn't reflect any one bowler's performance. Individual averages only include games where a single bowler bowled the entire game.
+</div>
+
+<p>Baker performance still shows up on individual detail cards — but in a separate section, clearly labeled.</p>
+
+<h2>How the Numbers Get Computed</h2>
+
+<p>All statistics are computed live from your <code>MatchRecord</code> rows and pin telemetry. There's no separate "stats" storage. This means:</p>
+
+<ul>
+  <li>Editing a match instantly updates statistics.</li>
+  <li>Deleting a match removes those games from stats.</li>
+  <li>Importing a match (or having one arrive via Live Match Scoring) includes it in stats immediately.</li>
+</ul>
+
+<h2>Which Pool Am I Looking At?</h2>
+
+<p>Every match is tagged with a pool (Boys or Girls). The Statistics dashboard filters strictly by that pool, so a girls-pool player never contaminates boys averages and vice versa.</p>
+
+<div class="callout warn">
+  <strong>If your Team Overview stats look off:</strong> the most common cause is stale squad-name data from an old build. The app auto-derives the pool from the squad name where possible ("Boys Varsity" → Boys), but if a squad name is ambiguous (e.g. just "Varsity"), it may not attribute correctly. Rename the squad to include the pool word.
+</div>
+
+<div class="footer-nav">
+  <a href="history.html">← Match History</a>
+  <a href="settings.html">Next: Settings Reference →</a>
+</div>
+
+</body>
+</html>
